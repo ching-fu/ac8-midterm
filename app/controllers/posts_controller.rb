@@ -1,15 +1,21 @@
 class PostsController < ApplicationController
 	before_action :authenticate_user!
-	before_action :find_post, :only => [:show,:edit,:update,:destroy]
+	before_action :find_post, :only => [:show,:edit,:update,:destroy,:newComment]
 
 	def newComment
 		puts '---------------------------------'
 		puts 'params=='+params.to_s+'......'
-		puts '---------------------------------'	
-		redirect_to :show	
+		puts '---------------------------------'
+		comment=Comment.new(:post_id=>params[:id],:user_id=>current_user.id)
+		post=params[:post]
+		puts post
+		comment.msg=post[:comments][:msg]
+		puts comment.msg
+		comment.save
+		redirect_to post_path(@post)
 	end	
 	def listComment
-		redirect_to :show
+		redirect_to post_path(@post)
 	end
 
 	def index
@@ -30,7 +36,14 @@ class PostsController < ApplicationController
 	def show
 		puts '---------------------------------'
 		puts 'params=='+params.to_s+'......'
-		puts '---------------------------------'		
+		puts '---------------------------------'
+		u=User.where(:id=>@post.user_id)
+#		puts u
+#		puts u[:email]
+#		@owner=u[:email]
+		@comments=Comment.where(:post_id=>params[:id])
+		#puts @comment[1].msg
+#		puts @owner
 	end
 
 	def edit

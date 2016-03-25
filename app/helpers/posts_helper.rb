@@ -15,4 +15,9 @@ module PostsHelper
     puts(x.comments)
     x
   end
+  def short_name(x)
+    puts "xxxxxxxxxxxxxxxxxxxxxxx"
+    puts x[:email]
+    x.email.split("@").first
+  end  
 end

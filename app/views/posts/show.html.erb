@@ -1,28 +1,43 @@
-<h1>show.html.erb</h1>
-<p>author: <%=@myuser.id%></p>
+<!-- <h1>show.html.erb</h1> -->
+<h1>topic: <%=@post.topic%></h1>
+<p>author id:  <%=@post.user_id%></p>
 <p>category: 
 	<%= get_category(@post.category_id)
 	%>
 </p>
-<p>topic: <%=@post.topic%></p>
+
 <hr />
 <p>content:</p>
 <blockquote>
 	<%=simple_format(@post.content)%>
 </blockquote>
-<%= link_to "back to list", posts_path() %>
+<h4>Here are comments:</h4>
+<table>
+	<thead><th>user_id</th><th>statement</th></thead>
+	<tbody>
+	<%@comments.each do |c|%>
+	<tr>
+		<td>
+			<%= c.user_id
+			%>
+			<%#=User.where(:id=>c.user_id)%>
+		</td>
+		<td>
+			<%=c.msg%>
+		</td>
+	</tr>
+	<%end%>
+	</tbody>
+</table>
 <!-- add comment field-->
-<%#= form_for init_post_comment(@post),:url => newComment_post_path(@post) do |f| %>
-		<%#= f[:comments].each do |m|%>
-			<%#= m.fields_for :msg do |m| %>
-				<!-- <p> -->
-					<%#= m.label :msg, "statement" %>
-					<%#= m.text_field :msg%>
-				<!-- </p> -->
-			<%#end%>
-		<%#end%>
-    <%#= f.submit "add comment"%>
-<%#end%>
+<%= form_for init_post_comment(@post),:url => newComment_post_path(@post) do |f| %>
+		<%= f.fields_for :comments do |c| %>
+		<p>
+			<%= c.label :msg, "msg" %>
+			<%= c.text_field :msg%>
+		</p>
+		<%end%>
+    <%= f.submit "add comment"%>
+<%end%>
 
-<!-- list comment -->
-<!-- listComment_post_path(@post) -->
+<%= link_to "back to list", posts_path() %>
