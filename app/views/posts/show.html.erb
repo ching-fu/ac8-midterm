@@ -1,0 +1,11 @@
+<h1>show.html.erb</h1>
+<p>topci: <%=@post.topic%></p>
+<hr />
+<p>content:</p>
+<blockquote>
+	<%=simple_format(@post.content)%>
+</blockquote>
+<%= link_to "back to list", posts_path() %>
+<!-- add comment field-->
+
+<!-- list comment -->
