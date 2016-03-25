@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+	before_action :authenticate_user!
 	before_action :find_post, :only => [:show,:edit,:update,:destroy]
 
 	def newComment
@@ -12,6 +13,7 @@ class PostsController < ApplicationController
 	end
 
 	def index
+		@myuser=current_user
 		@posts=Post.page(params[:page]).per(5)
 		#@posts=Post.all
 	end
@@ -21,6 +23,7 @@ class PostsController < ApplicationController
 	end
 	def create
 		@post=Post.new(approve_params)
+		@post.user_id=current_user.id
 		@post.save
 		redirect_to posts_path();		
 	end
@@ -43,11 +46,12 @@ class PostsController < ApplicationController
 	end
 	def find_post
 		@post=Post.find(params[:id])
+		@myuser=current_user
 	end
 
 	private
 	def approve_params
-		params.require(:post).permit(:topic, :content, :category_id, :comments=>[:post_id, :user_id, :msg])
+		params.require(:post).permit(:topic, :content, :category_id, :user_id, :comments=>[:post_id, :user_id, :msg])
 	end
 
 end

@@ -1,8 +1,16 @@
 <h1>index.html.erb</h1>
+<% if current_user %>
+  <%= link_to('log out', destroy_user_session_path, :method => :delete) %> |
+          <%= link_to('password', edit_registration_path(:user)) %>
+<% else %>
+   <%= link_to('regist', new_registration_path(:user)) %> |
+          <%= link_to('log in', new_session_path(:user)) %>
+<% end %>
+
 <table>
   <thead>
     <tr>
-    <th>create at</th><th>category</th><th>topic</th>
+    <th>create at</th><th>category</th><th>author id</th><th>topic</th>
     </tr> 
   </thead>
   <tbody>
@@ -14,15 +22,20 @@
     <td>
       <%= get_category(p.category_id)%>
     </td>
+    <td>
+      <%= p.try(:user_id)%>
+    </td>
 	 <td>  	
 	   <%= link_to p.topic, post_path(p) %>
 	 </td>
-	 <td>
-    <%= link_to "edit", edit_post_path(p) %>
-   </td>
-   <td>
-    <%= link_to "destroy", post_path(p), :method=>"delete" %>
-   </td>
+   <% if @myuser.id==p.try(:user_id)%>
+	   <td>
+      <%= link_to "edit", edit_post_path(p) %>
+    </td>
+    <td>
+      <%= link_to "destroy", post_path(p), :method=>"delete" %>
+    </td>
+   <%end%>
   </tr>
 <%end%>
 </tbody>
