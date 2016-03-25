@@ -45,7 +45,7 @@ class PostsController < ApplicationController
 
 	private
 	def approve_params
-		params.require(:post).permit(:topic, :content)
+		params.require(:post).permit(:topic, :content, :category_id)
 	end
 
 end

@@ -1,4 +1,8 @@
-<%= f.label :topic, "Topic" %>
+<%= f.label :topic, "Topic:" %>
 <%= f.text_field :topic%>
-<%= f.label :content, "Topic" %>
+<%= f.label :category_id, "Category:"%>
+<%= f.select :category_id, [["快報資訊",0],["求物資",1],["求救",2]]%>
+<div>
+<%= f.label :content, "Content:" %>
 <%= f.text_area :content %>
+</div>

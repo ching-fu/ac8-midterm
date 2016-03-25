@@ -1,5 +1,9 @@
 <h1>show.html.erb</h1>
-<p>topci: <%=@post.topic%></p>
+<p>category: 
+	<%= get_category(@post.category_id)
+	%>
+</p>
+<p>topic: <%=@post.topic%></p>
 <hr />
 <p>content:</p>
 <blockquote>
