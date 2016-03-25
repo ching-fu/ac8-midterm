@@ -11,5 +11,17 @@
 </blockquote>
 <%= link_to "back to list", posts_path() %>
 <!-- add comment field-->
+<%#= form_for init_post_comment(@post),:url => newComment_post_path(@post) do |f| %>
+		<%#= f[:comments].each do |m|%>
+			<%#= m.fields_for :msg do |m| %>
+				<!-- <p> -->
+					<%#= m.label :msg, "statement" %>
+					<%#= m.text_field :msg%>
+				<!-- </p> -->
+			<%#end%>
+		<%#end%>
+    <%#= f.submit "add comment"%>
+<%#end%>
 
 <!-- list comment -->
+<!-- listComment_post_path(@post) -->

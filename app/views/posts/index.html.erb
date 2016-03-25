@@ -14,11 +14,8 @@
     <td>
       <%= get_category(p.category_id)%>
     </td>
-    <td>
-      <%= p.topic%>
-    </td>
 	 <td>  	
-	   <%= link_to "show", post_path(p) %>
+	   <%= link_to p.topic, post_path(p) %>
 	 </td>
 	 <td>
     <%= link_to "edit", edit_post_path(p) %>

@@ -1,13 +1,15 @@
 class PostsController < ApplicationController
 	before_action :find_post, :only => [:show,:edit,:update,:destroy]
 
-	# def newComment
-		# puts '---------------------------------'
-		# puts 'params=='+params.to_s+'......'
-		# puts '---------------------------------'		
-	# end	
-	# def listComment
-	# end
+	def newComment
+		puts '---------------------------------'
+		puts 'params=='+params.to_s+'......'
+		puts '---------------------------------'	
+		redirect_to :show	
+	end	
+	def listComment
+		redirect_to :show
+	end
 
 	def index
 		@posts=Post.page(params[:page]).per(5)
@@ -40,12 +42,12 @@ class PostsController < ApplicationController
 		redirect_to posts_path();
 	end
 	def find_post
-		@post=Post.find(params[:id])		
+		@post=Post.find(params[:id])
 	end
 
 	private
 	def approve_params
-		params.require(:post).permit(:topic, :content, :category_id)
+		params.require(:post).permit(:topic, :content, :category_id, :comments=>[:post_id, :user_id, :msg])
 	end
 
 end

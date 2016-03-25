@@ -9,5 +9,10 @@ module PostsHelper
         "求救"
       end
     end
-
+  def init_post_comment(x)
+    puts("x.id"+x.id.to_s)
+    x.build_comments unless x.comments
+    puts(x.comments)
+    x
+  end
 end
